@@ -3,11 +3,12 @@ var app = express();
 var cors = require('cors'); //	解决跨域
 var bodyParser = require('body-parser'); // 解析post数据
 var mysql = require('mysql'); // 连接mysql
-var public = require('./login/index.js');
-var user = require('./user/index.js');
+var Public = require('./login/index.js');
+var User = require('./user/index.js');
+var Class = require('./class/index.js');
 var connection = mysql.createConnection({
-    host: 'www.rainrain.xin',
-    // host: 'localhost',
+    // host: 'www.rainrain.xin',
+    host: 'localhost',
     user: 'root',
     password: '7773712',
     database: 'studentdb'
@@ -26,26 +27,48 @@ app.use(bodyParser.urlencoded({
 //     res.send('Hello World');
 // })
 
+/**
+ * 登录接口
+ */
 // 学生教师登录
-app.get('/studentdb/user/login/:id/:password/:role', public.login);
+app.get('/studentdb/user/login/:id/:password/:role', Public.login);
 
+/**
+ * 学生教师信息处理接口
+ */
 // 获取所有学生信息
-app.get('/studentdb/student/info/:page/:size', user.getStudent);
+app.get('/studentdb/student/info/:page/:size', User.getStudent);
 
 // 获取所有教师信息
-app.get('/studentdb/teacher/info/:page/:size', user.getTeacher);
-
-// 获取课程信息
-app.get('/studentdb/class/info', public.getClass);
+app.get('/studentdb/teacher/info/:page/:size', User.getTeacher);
 
 // 新增学生教师信息
-app.post('/studentdb/user/insert', user.insertInfo);
+app.post('/studentdb/user/insert', User.insertInfo);
 
 // 删除学生教师信息
-// app.delete('/studentdb/user/delete/:id', user.delete);
+app.delete('/studentdb/user/delete/:id/:role', User.deleteUser);
 
 // 编辑学生教师信息
-// app.put('/studentdb/user/edit', user.edit);
+app.put('/studentdb/user/edit', User.editUser);
+
+/**
+ * 课程处理接口
+ */
+// 获取课程信息
+app.get('/studentdb/class/info', Class.getClass);
+
+// 新增课程信息
+app.post('/studentdb/class/insert', Class.insertClass);
+
+// 删除课程信息
+app.delete('/studentdb/class/delete/:id', Class.deleteClass);
+
+// 编辑课程信息
+app.put('/studentdb/class/edit', Class.editClass);
+
+
+
+
 
 
 

@@ -1,7 +1,8 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-    host: 'www.rainrain.xin',
-	// host:'localhost',
+    host: app.host,
+    // host: 'www.rainrain.xin',
+    host:'localhost',
     user: 'root',
     password: '7773712',
     database: 'studentdb'
@@ -62,35 +63,6 @@ exports.login = function( req, res){
                 }
                 res.json(json);
             }
-
-        }
-    })
-}
-
-// 获取所有课程接口get方法
-exports.getClass = function (req,res) {
-    var sql = 'select * from class';
-    connection.query(sql, function(err, result) {
-        if(err) {
-            console.log(err.message);
-            res.json(err.message);
-            return;
-        }
-        console.log(result);
-        if(result.length == 0) {
-            var json = {
-                errCode: 1,
-                errMsg: '没有更多数据了',
-                dataList: []
-            }
-            res.json(json);
-        } else {
-            var json = {
-                errCode: 0,
-                errMsg: '获取数据成功',
-                dataList: result
-            }
-            res.json(json);
 
         }
     })
