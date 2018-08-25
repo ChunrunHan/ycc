@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-    // host: 'www.rainrain.xin',
-	host:'localhost',
+    host: 'www.rainrain.xin',
+	// host:'localhost',
     user: 'root',
     password: '7773712',
     database: 'studentdb'

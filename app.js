@@ -7,8 +7,8 @@ var Public = require('./login/index.js');
 var User = require('./user/index.js');
 var Class = require('./class/index.js');
 var connection = mysql.createConnection({
-    // host: 'www.rainrain.xin',
-    host: 'localhost',
+    host: 'www.rainrain.xin',
+    // host: 'localhost',
     user: 'root',
     password: '7773712',
     database: 'studentdb'
