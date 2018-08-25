@@ -1,6 +1,5 @@
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-    host: app.host,
     host: 'www.rainrain.xin',
     // host:'localhost',
     user: 'root',
