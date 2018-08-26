@@ -57,6 +57,37 @@ exports.getTeacher = function (req, res) {
     });
 }
 
+// 获取教师id和名字接口
+exports.getTeacherId = function(req,res){
+    var sql = 'select id,tname from teacher';
+    connection.query(sql, function (err, result) {
+        if (err) {
+            console.log(err.message);
+            res.json(err.message);
+            return;
+        }
+
+        console.log(result);
+
+        if (result.length == 0) {
+            var json = {
+                errCode: 1,
+                errMsg: '没有更多数据了',
+                dataList: []
+            }
+            res.json(json);
+        } else {
+            var json = {
+                errCode: 0,
+                errMsg: '获取数据成功',
+                dataList: result
+            }
+            res.json(json);
+
+        }
+    })
+}
+
 // 获取学生信息接口get方法
 exports.getStudent = function (req, res) {
     console.log(req.params.page);

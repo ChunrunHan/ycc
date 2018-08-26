@@ -43,6 +43,9 @@ app.get('/studentdb/student/info/:page/:size', User.getStudent);
 // 获取所有教师信息
 app.get('/studentdb/teacher/info/:page/:size', User.getTeacher);
 
+// 获取教师id和名字
+app.get('/studentdb/teacher/id',User.getTeacherId)
+
 // 新增学生教师信息
 app.post('/studentdb/user/insert', User.insertInfo);
 
