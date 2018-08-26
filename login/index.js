@@ -4,7 +4,9 @@ var connection = mysql.createConnection({
     // host:'localhost',
     user: 'root',
     password: '7773712',
-    database: 'studentdb'
+    database: 'studentdb',
+    useConnectionPooling: true
+
 });
 connection.connect();
 
