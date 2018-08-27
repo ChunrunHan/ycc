@@ -42,18 +42,18 @@ exports.getClass = function (req,res) {
 // 新增课程post
 exports.insertClass = function (req, res) {
     console.log(req.body);
-    // var sql = 'SELECT id FROM studentdb.class where id =' + req.body.id
-    // console.log(sql);
-    // //	查询课程id是否重复
-    // connection.query(sql, function (err, result) {
-    //     console.log(result);
-    //     if (err) {
-    //         res.json(err.message);
-    //         return;
-    //     }
-    //     // 如果用户不存在的话就注册该用户
-    //     // 插入数据
-    //     if (result.length == 0) {
+    var sql = 'SELECT name FROM studentdb.class where name =' + req.body.name
+    console.log(sql);
+    //	查询课程id是否重复
+    connection.query(sql, function (err, result) {
+        console.log(result);
+        if (err) {
+            res.json(err.message);
+            return;
+        }
+        // 如果用户不存在的话就注册该用户
+        // 插入数据
+        if (result.length == 0) {
             var addSql = 'INSERT INTO class(name, credit, ctime, type, teacher_id) VALUES(?,?,?,?,?)';
             var addSqlParams = [req.body.name, req.body.credit, req.body.ctime, req.body.type, req.body.teacher_id];
             connection.query(addSql, addSqlParams, function (err, result) {
@@ -76,18 +76,18 @@ exports.insertClass = function (req, res) {
 
                 return res.json(json);
             });
-            // return;
-        // } else {
-        //     console.log('已存在')
-        //     var json = {
-        //         errCode: 1,
-        //         errMsg: '课程已存在',
-        //         dataList: []
-        //     }
-        //     res.json(json);
-        // }
-
-    // });
+            return;
+        } else {
+            console.log('已存在')
+            var json = {
+                errCode: 1,
+                errMsg: '课程已存在',
+                dataList: []
+            }
+            res.json(json);
+        }
+    //
+    });
 }
 
 // 删除课程del

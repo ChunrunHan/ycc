@@ -6,6 +6,7 @@ var mysql = require('mysql'); // 连接mysql
 var Public = require('./login/index.js');
 var User = require('./user/index.js');
 var Class = require('./class/index.js');
+var Score = require('./score/index.js')
 var connection = mysql.createConnection({
     host: 'www.rainrain.xin',
     // host: 'localhost',
@@ -71,7 +72,9 @@ app.delete('/studentdb/class/delete/:id', Class.deleteClass);
 app.put('/studentdb/class/edit', Class.editClass);
 
 
-
+// 成绩处理接口
+// 新增成绩接口
+app.post('/studentdb/score/insert',Score.insertScore)
 
 
 
