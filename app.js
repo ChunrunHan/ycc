@@ -83,7 +83,7 @@ app.delete('/studentdb/score/delete/:id',Score.deleteScore)
 app.put('/studentdb/score/edit',Score.editScore)
 
 // 获取所有学生成绩信息
-app.get('/studentdb/score/info/all/:page/:size', Class.getAllScore);
+app.get('/studentdb/score/info/all/:page/:size', Score.getAllScore)
 
 var server = app.listen(12345, function () {
     var host = server.address().address
