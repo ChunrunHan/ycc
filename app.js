@@ -48,7 +48,7 @@ app.get('/studentdb/teacher/info/:page/:size', User.getTeacher);
 app.get('/studentdb/teacher/id',User.getTeacherId)
 
 // 根据id和role获取用户信息
-api.get('/studentdb/userinfo/:id/:role',User.getUserInfo)
+app.get('/studentdb/userinfo/:id/:role',User.getUserInfo)
 
 // 新增学生教师信息
 app.post('/studentdb/user/insert', User.insertInfo);
