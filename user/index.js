@@ -247,12 +247,15 @@ exports.deleteUser = function (req, res) {
     console.log(typeof req.params.id);
     var role = req.params.role;
     var delSql;
+    var delOthers = '';
     if (parseInt(role) == 1) {
         //	删除教师
         delSql = 'DELETE FROM teacher where id="' + req.params.id + '"';
+        delOthers = 'DELETE FROM class where teacher_id="' + req.param.id +'"';
     } else {
-        //	删除用户
+        //	删除学生
         delSql = 'DELETE FROM student where id="' + req.params.id + '"';
+        delOthers = 'DELETE FROM score where student_id="' + req.param.id +'"';
     }
     connection.query(delSql, function (err, result) {
         if (err) {
@@ -264,11 +267,27 @@ exports.deleteUser = function (req, res) {
         console.log(result);
 
         if (result.serverStatus == 2) {
-            var json = {
-                errCode: 0,
-                errMsg: '删除成功'
-            }
-            res.json(json);
+            connection.query(delOthers,function (e,r) {
+                if (err) {
+                    console.log(err.message);
+                    res.json(err.message);
+                    return;
+                }
+
+                if(result.serverStatus == 2){
+                    var json = {
+                        errCode: 0,
+                        errMsg: '删除成功'
+                    }
+                    res.json(json);
+                }else{
+                    var json = {
+                        errCode: 1,
+                        errMsg: '删除失败'
+                    }
+                    res.json(json);
+                }
+            })
         } else {
             var json = {
                 errCode: 1,

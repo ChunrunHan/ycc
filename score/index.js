@@ -12,33 +12,47 @@ connection.connect();
 
 // 获取所有学生课程成绩接口get方法
 exports.getAllScore = function (req,res) {
-    var sql = 'SELECT student.id,student.name,class.name,score.grade FROM studentdb.student left join score' +
-        ' on student_id = score.student_id left join class on score.class_id = class.id limit  '
+    var sql = 'SELECT student.id,student.name,class.name as className,score.grade FROM studentdb.score left ' +
+        'join student on student.id = score.student_id left join class on score.class_id = class.id limit'
         + req.params.size * req.params.page + ',' + req.params.size;
-    connection.query(sql, function(err, result) {
-        if(err) {
+    var all = 'select count(*) as totalRecords from score';
+    connection.query(all, function (err, result) {
+        if (err) {
             console.log(err.message);
             res.json(err.message);
             return;
         }
-        console.log(result);
-        if(result.length == 0) {
-            var json = {
-                errCode: 1,
-                errMsg: '没有更多数据了',
-                dataList: []
+        console.log(result)
+        totalRecords = result[0].totalRecords;
+        console.log(totalRecords)
+        connection.query(sql, function (err, result) {
+            if (err) {
+                console.log(err.message);
+                res.json(err.message);
+                return;
             }
-            res.json(json);
-        } else {
-            var json = {
-                errCode: 0,
-                errMsg: '获取数据成功',
-                dataList: result
-            }
-            res.json(json);
 
-        }
-    })
+            console.log(result);
+
+            if (result.length == 0) {
+                var json = {
+                    errCode: 1,
+                    errMsg: '没有更多数据了',
+                    dataList: []
+                }
+                res.json(json);
+            } else {
+                var json = {
+                    errCode: 0,
+                    errMsg: '获取数据成功',
+                    totalRecords: totalRecords,
+                    dataList: result
+                }
+                res.json(json);
+
+            }
+        })
+    });
 }
 
 // 新增成绩post
@@ -156,4 +170,38 @@ exports.editScore = function (req, res) {
     });
 }
 
+// 根据学号获取成绩
+exports.getScoreByStudentID = function (req, res) {
+    console.log(req.params.id);
+    // var sql = 'SELECT student.id,student.name,class.name,score.grade FROM studentdb.student left join score' +
+    //     ' on student_id = score.student_id left join class on score.class_id = class.id where student.id =  '
+    //     + req.params.id
+    var sql = 'SELECT student.id,student.name,class.name as className,score.grade FROM studentdb.score left join student' +
+    ' on student.id = score.student_id left join class on score.class_id = class.id where student.id = '
+    + req.params.id
+    connection.query(sql,function (err,result) {
+        if(err) {
+            console.log(err.message);
+            res.json(err.message);
+            return;
+        }
+        console.log(result);
+        if(result.length == 0) {
+            var json = {
+                errCode: 1,
+                errMsg: '没有更多数据了',
+                dataList: []
+            }
+            res.json(json);
+        } else {
+            var json = {
+                errCode: 0,
+                errMsg: '获取数据成功',
+                dataList: result
+            }
+            res.json(json);
+
+        }
+    })
+}
 
