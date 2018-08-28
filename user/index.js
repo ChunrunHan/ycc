@@ -89,6 +89,44 @@ exports.getTeacherId = function(req,res){
     })
 }
 
+// 根据id和role获取学生和教师信息
+exports.getUserInfo = function (req,res) {
+    var role = req.params.role;
+    var id = req.params.id;
+    var sql;
+    if(parseInt(role) == 1){
+        sql = 'select * from teacher where id = '+ id
+    }else{
+        sql = 'select * from student where id =' + id
+    }
+    connection.query(sql,function (err,result) {
+        if (err) {
+            console.log(err.message);
+            res.json(err.message);
+            return;
+        }
+
+        console.log(result);
+
+        if (result.length == 0) {
+            var json = {
+                errCode: 1,
+                errMsg: '没有更多数据了',
+                dataList: []
+            }
+            res.json(json);
+        } else {
+            var json = {
+                errCode: 0,
+                errMsg: '获取数据成功',
+                dataList: result
+            }
+            res.json(json);
+
+        }
+    })
+}
+
 // 获取学生信息接口get方法
 exports.getStudent = function (req, res) {
     console.log(req.params.page);
