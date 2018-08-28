@@ -76,8 +76,14 @@ app.put('/studentdb/class/edit', Class.editClass);
 // 新增成绩接口
 app.post('/studentdb/score/insert',Score.insertScore)
 
+// 删除成绩接口
+app.delete('/studentdb/score/delete/:id',Score.deleteScore)
 
+// 编辑成绩接口
+app.put('/studentdb/score/edit',Score.editScore)
 
+// 获取所有学生成绩信息
+app.get('/studentdb/score/info/all/:page/:size', Class.getAllScore);
 
 var server = app.listen(12345, function () {
     var host = server.address().address

@@ -16,7 +16,8 @@ exports.getTeacher = function (req, res) {
     console.log(req.params.size * req.params.page);
     //	查询所有用户
     var totalRecords;
-    var sql = 'select teacher.*,class.name as className from teacher left join class on teacher.class_cno = class.id limit  ' + req.params.size * req.params.page + ',' + req.params.size;
+    var sql = 'select teacher.*,class.name as className from teacher left join class on teacher.class_cno = class.id limit  '
+        + req.params.size * req.params.page + ',' + req.params.size;
     var all = 'select count(*) as totalRecords from teacher';
     connection.query(all, function (err, result) {
         if (err) {

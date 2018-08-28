@@ -10,9 +10,11 @@ var connection = mysql.createConnection({
 });
 connection.connect();
 
-// 获取所有学生成绩接口get方法
-exports.getScore = function (req,res) {
-    var sql = 'select * from class';
+// 获取所有学生课程成绩接口get方法
+exports.getAllScore = function (req,res) {
+    var sql = 'SELECT student.id,student.name,class.name,score.grade FROM studentdb.student left join score' +
+        ' on student_id = score.student_id left join class on score.class_id = class.id limit  '
+        + req.params.size * req.params.page + ',' + req.params.size;
     connection.query(sql, function(err, result) {
         if(err) {
             console.log(err.message);
@@ -94,9 +96,7 @@ exports.deleteScore = function (req, res) {
     //	后台删除用户接口
     console.log(req.params.id);
     console.log(typeof req.params.id);
-    var role = req.params.role;
-    var delSql;
-    delSql = 'DELETE FROM class where id="' + req.params.id + '"';
+    var delSql = 'DELETE FROM score where id="' + req.params.id + '"';
     connection.query(delSql, function (err, result) {
         if (err) {
             console.log(err.message);
@@ -121,7 +121,6 @@ exports.deleteScore = function (req, res) {
 
         }
     })
-
 }
 
 // 修改成绩put
@@ -130,8 +129,8 @@ exports.editScore = function (req, res) {
     console.log(req.body.id)
     var mySql;
     var modSqlParams;
-    mySql = "update studentdb.class set name=?,credit=?,ctime=?,type=?,teacher_id=? where id='" + req.body.id + "'";
-    modSqlParams = [req.body.name, req.body.credit, req.body.ctime, req.body.type, req.body.teacher_id];
+    mySql = "update studentdb.score set grade=?,class_id=?,student_id=? where id='" + req.body.id + "'";
+    modSqlParams = [req.body.grade, req.body.class_id, req.body.student_id];
 
     connection.query(mySql, modSqlParams, function (err, result) {
         if (err) {
