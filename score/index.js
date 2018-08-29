@@ -53,7 +53,7 @@ exports.getAllScore = function (req,res) {
             }
         })
     });
-    connection.end();
+
 }
 
 // 新增成绩post
@@ -104,7 +104,7 @@ exports.insertScore = function (req, res) {
         }
 
     });
-    connection.end();
+
 }
 
 // 删除成绩del
@@ -137,7 +137,7 @@ exports.deleteScore = function (req, res) {
 
         }
     })
-    connection.end();
+
 }
 
 // 修改成绩put
@@ -171,7 +171,7 @@ exports.editScore = function (req, res) {
             res.json(json);
         }
     });
-    connection.end();
+
 }
 
 // 根据学号获取成绩
@@ -207,6 +207,6 @@ exports.getScoreByStudentID = function (req, res) {
 
         }
     })
-    connection.end();
+
 }
 

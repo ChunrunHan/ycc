@@ -67,5 +67,4 @@ exports.login = function( req, res){
 
         }
     })
-    connection.end();
 }
