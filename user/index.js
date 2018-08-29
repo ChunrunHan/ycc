@@ -5,8 +5,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '7773712',
     database: 'studentdb',
-    useConnectionPooling: true
-
+    multipleStatements:true
 });
 connection.connect();
 // 获取教师信息接口get方法
@@ -56,6 +55,7 @@ exports.getTeacher = function (req, res) {
             }
         })
     });
+    connection.end();
 }
 
 // 获取教师id和名字接口
@@ -87,6 +87,7 @@ exports.getTeacherId = function(req,res){
 
         }
     })
+    connection.end();
 }
 
 // 根据id和role获取学生和教师信息
@@ -125,6 +126,7 @@ exports.getUserInfo = function (req,res) {
 
         }
     })
+    connection.end();
 }
 
 // 获取学生信息接口get方法
@@ -173,6 +175,7 @@ exports.getStudent = function (req, res) {
             }
         })
     });
+    connection.end();
 }
 
 // 新增学生教师信息接口post方法
@@ -222,6 +225,7 @@ exports.insertInfo = function (req, res) {
         }
 
     });
+    connection.end();
 }
 
 // 添加学生信息
@@ -335,6 +339,7 @@ exports.deleteUser = function (req, res) {
 
         }
     })
+    connection.end();
 
 }
 
@@ -386,6 +391,7 @@ exports.editUser = function (req, res) {
             res.json(json);
         }
     });
+    connection.end();
 }
 
 exports.searchRole = function (req, res) {

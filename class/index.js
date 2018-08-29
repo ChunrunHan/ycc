@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '7773712',
     database: 'studentdb',
-    useConnectionPooling: true
+    multipleStatements:true
 
 });
 connection.connect();
@@ -37,6 +37,7 @@ exports.getClass = function (req,res) {
 
         }
     })
+    connection.end();
 }
 
 // 新增课程post
@@ -88,6 +89,7 @@ exports.insertClass = function (req, res) {
         }
     //
     });
+    connection.end();
 }
 
 // 删除课程del
@@ -122,6 +124,7 @@ exports.deleteClass = function (req, res) {
 
         }
     })
+    connection.end();
 
 }
 
@@ -156,6 +159,7 @@ exports.editClass = function (req, res) {
             res.json(json);
         }
     });
+    connection.end();
 }
 
 

@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '7773712',
     database: 'studentdb',
-    useConnectionPooling: true
+    multipleStatements:true
 });
 connection.connect();
 //环境变量

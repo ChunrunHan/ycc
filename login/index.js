@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '7773712',
     database: 'studentdb',
-    useConnectionPooling: true
+    multipleStatements:true
 
 });
 connection.connect();
@@ -67,4 +67,5 @@ exports.login = function( req, res){
 
         }
     })
+    connection.end();
 }
