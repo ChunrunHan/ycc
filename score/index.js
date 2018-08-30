@@ -208,7 +208,7 @@ exports.getScoreByStudentID = function (req, res) {
                     return;
                 }
                 console.log(r);
-                if(result.length == 0) {
+                if(r.length == 0) {
                     var json = {
                         errCode: 1,
                         errMsg: '没有成绩信息',
