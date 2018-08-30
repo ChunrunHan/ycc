@@ -12,7 +12,7 @@ connection.connect();
 
 // 获取所有学生课程成绩接口get方法
 exports.getAllScore = function (req,res) {
-    var sql = 'SELECT student.id,student.name,class.name as className,score.grade FROM studentdb.score left ' +
+    var sql = 'SELECT score.id as id,score.student_id,student.name,score.class_id,class.name as className,score.grade FROM studentdb.score left ' +
         'join student on student.id = score.student_id left join class on score.class_id = class.id limit '
         + req.params.size * req.params.page + ',' + req.params.size;
     var all = 'select count(*) as totalRecords from score';
