@@ -295,7 +295,7 @@ exports.deleteUser = function (req, res) {
     } else {
         //	删除学生
         delSql = 'DELETE FROM student where id="' + req.params.id + '"';
-        delOthers = 'DELETE FROM score where student_id="' + req.param.id +'"';
+        delOthers = 'DELETE FROM score where id="' + req.param.id +'"';
     }
     connection.query(delSql, function (err, result) {
         if (err) {
