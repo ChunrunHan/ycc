@@ -201,13 +201,13 @@ exports.getScoreByStudentID = function (req, res) {
             return;
         } else {
             var oldresult = result;
-            connection.query(sql,function (err,result) {
+            connection.query(sql,function (err,r) {
                 if(err) {
                     console.log(err.message);
                     res.json(err.message);
                     return;
                 }
-                console.log(result);
+                console.log(r);
                 if(result.length == 0) {
                     var json = {
                         errCode: 1,
@@ -219,7 +219,7 @@ exports.getScoreByStudentID = function (req, res) {
                     var json = {
                         errCode: 0,
                         errMsg: '获取数据成功',
-                        dataList: result
+                        dataList: r
                     }
                     res.json(json);
 
