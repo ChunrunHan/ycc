@@ -179,33 +179,59 @@ exports.getScoreByStudentID = function (req, res) {
     // var sql = 'SELECT student.id,student.name,class.name,score.grade FROM studentdb.student left join score' +
     //     ' on student_id = score.student_id left join class on score.class_id = class.id where student.id =  '
     //     + req.params.id
+    var queryUser = 'SELECT id FROM studentdb.student where id =' + req.params.id;
     var sql = 'SELECT student.id,student.name,class.name as className,score.grade FROM studentdb.score left join student' +
     ' on student.id = score.student_id left join class on score.class_id = class.id where student.id = '
     + req.params.id
-    connection.query(sql,function (err,result) {
-        if(err) {
-            console.log(err.message);
+    //	查询是否已经注册过
+    connection.query(queryUser, function (err, result) {
+        console.log(result);
+        if (err) {
             res.json(err.message);
             return;
         }
-        console.log(result);
-        if(result.length == 0) {
+        // 如果用户不存在的话
+        if (result.length == 0) {
             var json = {
-                errCode: 1,
-                errMsg: '没有更多数据了',
+                errCode: 2,
+                errMsg: '学生不存在',
                 dataList: []
             }
             res.json(json);
+            return;
         } else {
-            var json = {
-                errCode: 0,
-                errMsg: '获取数据成功',
-                dataList: result
-            }
-            res.json(json);
+            connection.query(sql,function (err,result) {
+                if(err) {
+                    console.log(err.message);
+                    res.json(err.message);
+                    return;
+                }
+                console.log(result);
+                if(result.length == 0) {
+                    var json = {
+                        errCode: 1,
+                        errMsg: '没有更多数据了',
+                        dataList: []
+                    }
+                    res.json(json);
+                } else {
+                    var json = {
+                        errCode: 0,
+                        errMsg: '获取数据成功',
+                        dataList: result
+                    }
+                    res.json(json);
+
+                }
+            })
 
         }
-    })
+
+    });
+
+
 
 }
+
+
 

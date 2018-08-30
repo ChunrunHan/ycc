@@ -16,8 +16,8 @@ exports.login = function( req, res){
     console.log(req.params.password);
     console.log(req.params.role);
     //	查询用户是否存在
-    var sql;
-    var who;
+    var sql = "";
+    var who = "";
     if(parseInt(req.params.role) == 1){
         sql = 'select * from teacher where id = ' + req.params.id;
         who = '教师'
