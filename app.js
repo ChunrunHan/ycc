@@ -82,6 +82,9 @@ app.get('/studentdb/score/info/all/:page/:size', Score.getAllScore)
 // 根据学生学号获取成绩信息
 app.get('/studentdb/score/info/byStudent/:id', Score.getScoreByStudentID)
 
+// 导出成绩
+app.get('/studentdb/score/export/all',Score.exportAllScore)
+
 var server = app.listen(12345, function () {
     var host = server.address().address
     var port = server.address().port
