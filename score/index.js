@@ -58,7 +58,7 @@ exports.getAllScore = function (req,res) {
 // 新增成绩post
 exports.insertScore = function (req, res) {
     console.log(req.body);
-    var sql = 'SELECT * FROM studentdb.score where class_id = ' + req.body.class_id + 'and student_id = ' + req.body.student_id;
+    var sql = "SELECT * FROM studentdb.score where class_id = '" + req.body.class_id + "' and student_id = '" + req.body.student_id +"'";
     console.log(sql);
     //	查询成绩是否重复
     connection.query(sql, function (err, result) {
