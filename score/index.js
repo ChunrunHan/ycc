@@ -179,7 +179,7 @@ exports.getScoreByStudentID = function (req, res) {
     // var sql = 'SELECT student.id,student.name,class.name,score.grade FROM studentdb.student left join score' +
     //     ' on student_id = score.student_id left join class on score.class_id = class.id where student.id =  '
     //     + req.params.id
-    var queryUser = 'SELECT id FROM studentdb.student where id =' + req.params.id;
+    var queryUser = 'SELECT id,name FROM studentdb.student where id =' + req.params.id;
     var sql = 'SELECT student.id,student.name,class.name as className,score.grade FROM studentdb.score left join student' +
     ' on student.id = score.student_id left join class on score.class_id = class.id where student.id = '
     + req.params.id
