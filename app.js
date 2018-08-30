@@ -7,15 +7,6 @@ var Public = require('./login/index.js');
 var User = require('./user/index.js');
 var Class = require('./class/index.js');
 var Score = require('./score/index.js')
-var connection = mysql.createConnection({
-    host: 'www.rainrain.xin',
-    // host: 'localhost',
-    user: 'root',
-    password: '7773712',
-    database: 'studentdb',
-    multipleStatements:true
-});
-connection.connect();
 //环境变量
 app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
