@@ -200,6 +200,7 @@ exports.getScoreByStudentID = function (req, res) {
             res.json(json);
             return;
         } else {
+            var oldresult = result;
             connection.query(sql,function (err,result) {
                 if(err) {
                     console.log(err.message);
@@ -210,8 +211,8 @@ exports.getScoreByStudentID = function (req, res) {
                 if(result.length == 0) {
                     var json = {
                         errCode: 1,
-                        errMsg: '没有更多数据了',
-                        dataList: []
+                        errMsg: '没有成绩信息',
+                        dataList: oldresult
                     }
                     res.json(json);
                 } else {
