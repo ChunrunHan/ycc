@@ -1,4 +1,7 @@
 var mysql = require('mysql');
+var xlsx = require('node-xlsx');
+var fs = require('fs');
+
 var connection = mysql.createConnection({
     host: 'www.rainrain.xin',
 	// host:'localhost',
@@ -255,16 +258,31 @@ exports.exportAllScore = function (req,res) {
                 }
                 res.json(json);
             } else {
-                var json = {
-                    errCode: 0,
-                    errMsg: '获取数据成功',
-                    totalRecords: totalRecords,
-                    dataList: result
-                }
-                res.json(json);
+                var datas = [];
+                result.forEach(function(row){
+                    var newRow = [];
+                    for(var key in row){
+                        newRow.push(row[key]);
+                    }
+                    datas.push(newRow);
+                })
+                datas.unshift(['学号','姓名','课程','成绩']);
+                var buffer = xlsx.build([{name: "学生成绩", data: datas}]);
+                var xlsxname = '学生成绩.xlsx';
+                fs.writeFile(xlsxname, buffer, 'binary',function(err){
+                    if (err) {
+                        callback(err,null);
+                        return;
+                    }
+                    res.sendFile("学生成绩.xlsx", {"root": './'});
+                })
+                // res.sendFile('./'+xlsxname)
+
 
             }
         })
 }
+
+
 
 
