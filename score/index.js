@@ -289,7 +289,7 @@ exports.searchScore = function (req,res) {
     var class_id = req.body.class_id;
     var pass = req.body.pass;
     var sql = 'SELECT student.id,student.name,class.name as className,score.grade FROM studentdb.score left join student' +
-        ' on student.id = score.student_id left join class on score.class_id = class.id where'
+        ' on student.id = score.student_id left join class on score.class_id = class.id where '
 
     if(student_id != ""){
         sql += "student.id = " + student_id
