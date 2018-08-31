@@ -292,7 +292,7 @@ exports.searchScore = function (req,res) {
         ' on student.id = score.student_id left join class on score.class_id = class.id where '
 
     if(student_id != ""){
-        sql += "student.id = " + student_id
+        sql += "student.id = '" + student_id+"' "
     }
     if(class_id != ""){
         if(student_id != ""){
@@ -333,7 +333,7 @@ exports.searchScore = function (req,res) {
             var json = {
                 errCode: 1,
                 errMsg: '没有成绩信息',
-                dataList: oldresult
+                dataList:[]
             }
             res.json(json);
         } else {
