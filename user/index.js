@@ -1,12 +1,12 @@
 var mysql = require('mysql');
-var connection = mysql.createConnection({
+var connection = mysql.createPool({
     host: 'www.rainrain.xin',
     // host:'localhost',
     user: 'root',
     password: '7773712',
     database: 'studentdb'
 });
-connection.connect();
+// connection.connect();
 // 获取教师信息接口get方法
 exports.getTeacher = function (req, res) {
     console.log(req.params.page);

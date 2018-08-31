@@ -2,7 +2,7 @@ var mysql = require('mysql');
 var xlsx = require('node-xlsx');
 var fs = require('fs');
 
-var connection = mysql.createConnection({
+var connection = mysql.createPool({
     host: 'www.rainrain.xin',
 	// host:'localhost',
     user: 'root',
@@ -10,7 +10,6 @@ var connection = mysql.createConnection({
     database: 'studentdb'
 
 });
-connection.connect();
 
 // 获取所有学生课程成绩接口get方法
 exports.getAllScore = function (req,res) {

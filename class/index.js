@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var connection = mysql.createConnection({
+var connection = mysql.createPool({
     host: 'www.rainrain.xin',
 	// host:'localhost',
     user: 'root',
@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
     database: 'studentdb'
 
 });
-connection.connect();
+// connection.connect();
 
 // 获取所有课程接口get方法
 exports.getClass = function (req,res) {

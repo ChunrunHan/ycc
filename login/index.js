@@ -1,5 +1,6 @@
 var mysql = require('mysql');
-var connection = mysql.createConnection({
+var connection = mysql.createPool({
+    connectionLimit : 10,
     host: 'www.rainrain.xin',
     // host:'localhost',
     user: 'root',
@@ -7,7 +8,7 @@ var connection = mysql.createConnection({
     database: 'studentdb'
 
 });
-connection.connect();
+// connection.connect();
 
 // 学生教师登录接口get方法
 exports.login = function( req, res){
