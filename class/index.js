@@ -42,11 +42,11 @@ exports.getClass = function (req,res) {
 // 新增课程post
 exports.insertClass = function (req, res) {
     console.log(req.body);
-    var sql = 'SELECT name FROM studentdb.class where name =' + req.body.name
+    var sql = "SELECT * FROM studentdb.class where name = '" + req.body.name +"'"
     console.log(sql);
     //	查询课程id是否重复
     connection.query(sql, function (err, result) {
-        console.log(result);
+        console.log("查询结果",result);
         if (err) {
             res.json(err.message);
             return;

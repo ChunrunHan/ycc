@@ -283,6 +283,72 @@ exports.exportAllScore = function (req,res) {
         })
 }
 
+// 根据学号id、课程id、是否及格1:及格0：不及格查询学生成绩
+exports.searchScore = function (req,res) {
+    console.log(req.body);
+    var student_id = req.body.student_id;
+    var class_id = req.body.class_id;
+    var pass = req.body.pass;
+    var sql = 'SELECT student.id,student.name,class.name as className,score.grade FROM studentdb.score left join student' +
+        ' on student.id = score.student_id left join class on score.class_id = class.id where'
+
+    if(student_id != ""){
+        sql += "student.id = " + student_id
+    }
+    if(class_id != ""){
+        if(student_id != ""){
+            sql += "and score.class_id = " + class_id
+        }else{
+            sql += "score.class_id = " + class_id
+        }
+    }
+
+    if(pass != ""){
+        if(class_id != "" || student_id != ""){
+            if(parseInt(pass) == 1){
+                // 及格
+                sql += "and score.grade >= 60"
+            }else{
+                // 不及格
+                sql += "and score.grade < 60"
+            }
+        }else{
+            if(parseInt(pass) == 1){
+                // 及格
+                sql += "score.grade >= 60"
+            }else{
+                // 不及格
+                sql += "score.grade < 60"
+            }
+        }
+    }
+    console.log(sql)
+    connection.query(sql,function (err,result) {
+        if(err) {
+            console.log(err.message);
+            res.json(err.message);
+            return;
+        }
+        console.log(result);
+        if(result.length == 0) {
+            var json = {
+                errCode: 1,
+                errMsg: '没有成绩信息',
+                dataList: oldresult
+            }
+            res.json(json);
+        } else {
+            var json = {
+                errCode: 0,
+                errMsg: '查询成功',
+                dataList: result
+            }
+            res.json(json);
+
+        }
+    })
+}
+
 
 
 
