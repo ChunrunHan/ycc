@@ -296,9 +296,9 @@ exports.searchScore = function (req,res) {
     }
     if(class_id != ""){
         if(student_id != ""){
-            sql += "and score.class_id = " + class_id
+            sql += "and score.class_id = '" + class_id +"' "
         }else{
-            sql += "score.class_id = " + class_id
+            sql += "score.class_id = '" + class_id +"' "
         }
     }
 
