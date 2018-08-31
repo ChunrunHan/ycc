@@ -348,6 +348,50 @@ exports.searchScore = function (req,res) {
     })
 }
 
+// 根据学号id导出成绩
+exports.exportScoreByID = function (req,res) {
+    var sql = 'SELECT score.student_id as 学号,student.name as 姓名,class.name as 课程名,score.grade FROM studentdb.score left ' +
+        'join student on student.id = score.student_id left join class on score.class_id = class.id where student.id = '
+        + req.params.id
 
+    connection.query(sql, function (err, result) {
+        if (err) {
+            console.log(err.message);
+            res.json(err.message);
+            return;
+        }
+        console.log(result);
+
+        if (result.length == 0) {
+            var json = {
+                errCode: 1,
+                errMsg: '没有更多数据了',
+                dataList: []
+            }
+            res.json(json);
+        } else {
+            var datas = [];
+            result.forEach(function(row){
+                var newRow = [];
+                for(var key in row){
+                    newRow.push(row[key]);
+                }
+                datas.push(newRow);
+            })
+            datas.unshift(['学号','姓名','课程','成绩']);
+            var buffer = xlsx.build([{name: req.params.id , data: datas}]);
+            var xlsxname = req.params.id+'.xlsx';
+            fs.writeFile(xlsxname, buffer, 'binary',function(err){
+                if (err) {
+                    callback(err,null);
+                    return;
+                }
+                res.sendFile(xlsxname, {"root": './'});
+            })
+
+
+        }
+    })
+}
 
 
