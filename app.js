@@ -89,7 +89,7 @@ app.get('/studentdb/score/export/all',Score.exportAllScore)
 app.post('/studentdb/score/search', Score.searchScore)
 
 // 根据学号导出成绩
-app.get('/studentdb/score/export/one/:id',Score.exportScoreByID)
+app.post('/studentdb/score/export/one',Score.exportScoreByID)
 
 var server = app.listen(12345, function () {
     var host = server.address().address
